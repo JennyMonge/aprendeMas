@@ -1,4 +1,7 @@
+
 import { useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
 export function BotonAgregar({ tipo }) {
   //INSTITUCION
   const datosInstitucion = {
@@ -49,8 +52,62 @@ export function BotonAgregar({ tipo }) {
     //validacion para enviar los datos al servidor
     if (totalValidaciones.length >= 1) {
       console.log("Enviar al servidor");
+      EnviarDatosInstitucion();
     }
   };
+
+  async function EnviarDatosInstitucion() {
+    const url = "http://localhost:8000/api/institucion-insertar"
+    const infoInputsInstitucion = {
+      nombre_inst: formularioIn.institucion,
+      tipo_institucion: formularioIn.tipoIn,
+      id_municipio: formularioIn.muniIn,
+    };
+    let config = {
+      headers: {
+        'Content-Type':'application/json',
+        'Accept':'application/json',
+      }
+    }
+    try {
+      const resp = await axios.post(url, infoInputsInstitucion, config);
+      console.log(resp);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'success',
+        title: 'se ha agregado institucion con exito'
+      })
+    }catch(err){
+      console.error(err);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'error',
+        title: 'ha ocurrido un error intente de nuevo'
+      })
+    }
+  }
   const ValidarInputs = (data) => {
     console.log(data);
     //declaramos un arreglo el cual se va encargar de guardar las validaciones
