@@ -2,7 +2,6 @@ import React from "react";
 import Navb from "../Dashboard/Nav";
 import Sidbar from "../Dashboard/Aside";
 import AdministrarUsuario from "./TablaUsuario";
-import {Filtro} from "../../Filtro/Filtro";
 import {BotonAgregar} from "../Botones/BotonAgregar"
 
 
@@ -18,7 +17,6 @@ export const Usuarios = () => {
                             <h2 class="text-2xl font-semibold leading-tight">Administración de Usuarios</h2>
                         </div>
                         <BotonAgregar tipo="agregarUsuario"/>
-                        <Filtro/>
                         <AdministrarUsuario/>
 
                     </div>

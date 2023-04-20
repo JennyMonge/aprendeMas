@@ -3,8 +3,14 @@ import { BotonEliminar } from "../Botones/BotonEliminar";
 import axios from "axios";
 import { BotonActivar } from "../Botones/BotonActivar";
 import { useState, useEffect } from "react";
+import { Paginacion } from "../../Filtro/Paginacion";
 const TablaUnidad = () => {
   const [datosServidor, setDatosServidor] = useState([]);
+  const[datosPages, setDatosPages] = useState(5);//cantidad de datos que quiero que me aparezcan
+  const [currentPage, setCurrentPage] = useState(1);
+  const sigIndex = currentPage * datosPages;
+  const primerIndex = sigIndex - datosPages;
+  const totalPaginas = datosServidor.length;
   const [busqueda, setBusqueda] = useState("");
   const [tabla, setTabla] = useState([]);
   const [seleccion, setSeleccion] = useState("");
@@ -157,7 +163,7 @@ const TablaUnidad = () => {
                                   {unidad.nombre_materia}
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                  0
+                                  {unidad.cuestionarios}
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
@@ -189,7 +195,7 @@ const TablaUnidad = () => {
                                 </td>
                               </tr>
                             );
-                          })}
+                          }).slice(primerIndex, sigIndex)}
                       </tbody>
                     );
                   case "inactivo":
@@ -209,7 +215,7 @@ const TablaUnidad = () => {
                                   {unidad.nombre_materia}
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                  0
+                                  {unidad.cuestionarios}
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
@@ -241,7 +247,7 @@ const TablaUnidad = () => {
                                 </td>
                               </tr>
                             );
-                          })}
+                          }).slice(primerIndex, sigIndex)}
                       </tbody>
                     );
                   default:
@@ -261,7 +267,7 @@ const TablaUnidad = () => {
                                   {unidad.nombre_materia}
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                  0
+                                  {unidad.cuestionarios}
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
@@ -293,7 +299,7 @@ const TablaUnidad = () => {
                                 </td>
                               </tr>
                             );
-                          })}
+                          }).slice(primerIndex, sigIndex)}
                       </tbody>
                     );
                 }
@@ -301,15 +307,10 @@ const TablaUnidad = () => {
             </table>
             <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
               <span class="text-xs xs:text-sm text-gray-900">
-                Showing 1 to 4 of 50 Entries
+              Mostrando {datosServidor.length} Entradas
               </span>
               <div class="inline-flex mt-2 xs:mt-0">
-                <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
-                  Anterior
-                </button>
-                <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
-                  Siguiente
-                </button>
+                <Paginacion datosPages={datosPages} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPaginas={totalPaginas}/>
               </div>
             </div>
           </div>

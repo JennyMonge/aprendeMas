@@ -4,10 +4,15 @@ import { BotonEliminar } from "../Botones/BotonEliminar";
 import { BotonActivar } from "../Botones/BotonActivar";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Paginacion } from "../../Filtro/Paginacion";
 
 export const AdministrarMateria = () => {
   const [datosServidor, setDatosServidor] = useState([]);
-
+  const [datosPages, setDatosPages] = useState(5); //cantidad de datos que quiero que me aparezcan
+  const [currentPage, setCurrentPage] = useState(1);
+  const sigIndex = currentPage * datosPages;
+  const primerIndex = sigIndex - datosPages;
+  const totalPaginas = datosServidor.length;
   const [busqueda, setBusqueda] = useState("");
   const [tabla, setTabla] = useState([]);
   const [seleccion, setSeleccion] = useState("");
@@ -128,7 +133,7 @@ export const AdministrarMateria = () => {
                   Nombre
                 </th>
                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-aFuerte text-left text-xs font-semibold text-bCasi uppercase tracking-wider">
-                  Unidades
+                  #Unidades
                 </th>
                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-aFuerte text-left text-xs font-semibold text-bCasi uppercase tracking-wider">
                   Grado
@@ -147,158 +152,164 @@ export const AdministrarMateria = () => {
                   return (
                     <tbody>
                       {datosServidor &&
-                        datosServidor.map((materia) => {
-                          return (
-                            <tr>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.id_materia}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.nombre_materia}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.nombre_unidad}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.nivel_academico}
-                              </td>
+                        datosServidor
+                          .map((materia) => {
+                            return (
+                              <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.id_materia}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.nombre_materia}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.unidades}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.nivel_academico}
+                                </td>
 
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <span
-                                  class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
-                                    materia.estado_materia == "activo"
-                                      ? "text-green-900"
-                                      : " text-red-900"
-                                  }`}
-                                >
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
-                                    class={`${
+                                    class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
                                       materia.estado_materia == "activo"
-                                        ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                                        : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                        ? "text-green-900"
+                                        : " text-red-900"
                                     }`}
-                                  ></span>
-                                  <span class="relative">
-                                    {materia.estado_materia}
+                                  >
+                                    <span
+                                      class={`${
+                                        materia.estado_materia == "activo"
+                                          ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                          : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                      }`}
+                                    ></span>
+                                    <span class="relative">
+                                      {materia.estado_materia}
+                                    </span>
                                   </span>
-                                </span>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <BotonEditar tipo="editarMateria" />
-                                {materia.estado_materia == "activo" ? (
-                                  <BotonEliminar tipo="eliminar" />
-                                ) : (
-                                  <BotonActivar tipo="activar" />
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <BotonEditar tipo="editarMateria" />
+                                  {materia.estado_materia == "activo" ? (
+                                    <BotonEliminar tipo="eliminar" />
+                                  ) : (
+                                    <BotonActivar tipo="activar" />
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })
+                          .slice(primerIndex, sigIndex)}
                     </tbody>
                   );
                 case "inactivo":
                   return (
                     <tbody>
                       {datosServidor &&
-                        datosServidor.map((materia) => {
-                          return (
-                            <tr>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.id_materia}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.nombre_materia}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.nombre_unidad}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.nivel_academico}
-                              </td>
+                        datosServidor
+                          .map((materia) => {
+                            return (
+                              <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.id_materia}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.nombre_materia}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.unidades}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.nivel_academico}
+                                </td>
 
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <span
-                                  class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
-                                    materia.estado_materia == "activo"
-                                      ? "text-green-900"
-                                      : " text-red-900"
-                                  }`}
-                                >
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
-                                    class={`${
+                                    class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
                                       materia.estado_materia == "activo"
-                                        ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                                        : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                        ? "text-green-900"
+                                        : " text-red-900"
                                     }`}
-                                  ></span>
-                                  <span class="relative">
-                                    {materia.estado_materia}
+                                  >
+                                    <span
+                                      class={`${
+                                        materia.estado_materia == "activo"
+                                          ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                          : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                      }`}
+                                    ></span>
+                                    <span class="relative">
+                                      {materia.estado_materia}
+                                    </span>
                                   </span>
-                                </span>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <BotonEditar tipo="editarMateria" />
-                                {materia.estado_materia == "activo" ? (
-                                  <BotonEliminar tipo="eliminar" />
-                                ) : (
-                                  <BotonActivar tipo="activar" />
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <BotonEditar tipo="editarMateria" />
+                                  {materia.estado_materia == "activo" ? (
+                                    <BotonEliminar tipo="eliminar" />
+                                  ) : (
+                                    <BotonActivar tipo="activar" />
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })
+                          .slice(primerIndex, sigIndex)}
                     </tbody>
                   );
                 default:
                   return (
                     <tbody>
                       {datosServidor &&
-                        datosServidor.map((materia) => {
-                          return (
-                            <tr>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.id_materia}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.nombre_materia}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.nombre_unidad}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {materia.nivel_academico}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <span
-                                  class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
-                                    materia.estado_materia == "activo"
-                                      ? "text-green-900"
-                                      : " text-red-900"
-                                  }`}
-                                >
+                        datosServidor
+                          .map((materia) => {
+                            return (
+                              <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.id_materia}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.nombre_materia}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.unidades}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {materia.nivel_academico}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
-                                    class={`${
+                                    class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
                                       materia.estado_materia == "activo"
-                                        ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                                        : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                        ? "text-green-900"
+                                        : " text-red-900"
                                     }`}
-                                  ></span>
-                                  <span class="relative">
-                                    {materia.estado_materia}
+                                  >
+                                    <span
+                                      class={`${
+                                        materia.estado_materia == "activo"
+                                          ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                          : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                      }`}
+                                    ></span>
+                                    <span class="relative">
+                                      {materia.estado_materia}
+                                    </span>
                                   </span>
-                                </span>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <BotonEditar tipo="editarMateria" />
-                                {materia.estado_materia == "activo" ? (
-                                  <BotonEliminar tipo="eliminar" />
-                                ) : (
-                                  <BotonActivar tipo="activar" />
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <BotonEditar tipo="editarMateria" />
+                                  {materia.estado_materia == "activo" ? (
+                                    <BotonEliminar tipo="eliminar" />
+                                  ) : (
+                                    <BotonActivar tipo="activar" />
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })
+                          .slice(primerIndex, sigIndex)}
                     </tbody>
                   );
               }
@@ -306,15 +317,15 @@ export const AdministrarMateria = () => {
           </table>
           <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
             <span class="text-xs xs:text-sm text-gray-900">
-              Showing 1 to 4 of 50 Entries
+              Mostrando {datosServidor.length} Entradas
             </span>
             <div class="inline-flex mt-2 xs:mt-0">
-              <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
-                Anterior
-              </button>
-              <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
-                Siguiente
-              </button>
+              <Paginacion
+                datosPages={datosPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPaginas={totalPaginas}
+              />
             </div>
           </div>
         </div>

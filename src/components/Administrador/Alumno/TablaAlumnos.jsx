@@ -4,9 +4,15 @@ import { BotonEliminar } from "../Botones/BotonEliminar";
 import { BotonActivar } from "../Botones/BotonActivar";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Paginacion } from "../../Filtro/Paginacion";
 
 export const AdministrarAlumnos = () => {
   const [datosServidor, setDatosServidor] = useState([]);
+  const [datosPages, setDatosPages] = useState(5); //cantidad de datos que quiero que me aparezcan
+  const [currentPage, setCurrentPage] = useState(1);
+  const sigIndex = currentPage * datosPages;
+  const primerIndex = sigIndex - datosPages;
+  const totalPaginas = datosServidor.length;
   //demas
   const [busqueda, setBusqueda] = useState("");
   const [tabla, setTabla] = useState([]);
@@ -116,7 +122,7 @@ export const AdministrarAlumnos = () => {
           />
         </div>
       </div>
-      {/*INICIO filtro */}
+      {/*FIN filtro */}
       <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
         <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
           <table class="min-w-full leading-normal">
@@ -154,240 +160,246 @@ export const AdministrarAlumnos = () => {
                   return (
                     <tbody>
                       {datosServidor &&
-                        datosServidor.map((alumno) => {
-                          return (
-                            <tr>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <div class="flex items-center">
-                                  <div class="flex-shrink-0 w-10 h-10">
-                                    {/**IMG */}
-                                    <img
-                                      class="w-full h-full rounded-full"
-                                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                      alt=""
-                                    />
+                        datosServidor
+                          .map((alumno) => {
+                            return (
+                              <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-10 h-10">
+                                      {/**IMG */}
+                                      <img
+                                        class="w-full h-full rounded-full"
+                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                        alt=""
+                                      />
+                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nombre_registro +
-                                    " " +
-                                    alumno.apellido_registro}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nie}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.correo}
-                                </p>
-                              </td>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nombre_registro +
+                                      " " +
+                                      alumno.apellido_registro}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nie}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.correo}
+                                  </p>
+                                </td>
 
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nombre_inst}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nivel_academico}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <span
-                                  class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
-                                    alumno.estado_registro == "activo"
-                                      ? "text-green-900"
-                                      : " text-red-900"
-                                  }`}
-                                >
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nombre_inst}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nivel_academico}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
-                                    class={`${
+                                    class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
                                       alumno.estado_registro == "activo"
-                                        ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                                        : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                        ? "text-green-900"
+                                        : " text-red-900"
                                     }`}
-                                  ></span>
-                                  <span class="relative">
-                                    {alumno.estado_registro}
+                                  >
+                                    <span
+                                      class={`${
+                                        alumno.estado_registro == "activo"
+                                          ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                          : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                      }`}
+                                    ></span>
+                                    <span class="relative">
+                                      {alumno.estado_registro}
+                                    </span>
                                   </span>
-                                </span>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <BotonEditar tipo="editarAlumno" />
-                                {alumno.estado_registro == "activo" ? (
-                                  <BotonEliminar tipo="eliminar" />
-                                ) : (
-                                  <BotonActivar tipo="activar" />
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <BotonEditar tipo="editarAlumno" />
+                                  {alumno.estado_registro == "activo" ? (
+                                    <BotonEliminar tipo="eliminar" />
+                                  ) : (
+                                    <BotonActivar tipo="activar" />
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })
+                          .slice(primerIndex, sigIndex)}
                     </tbody>
                   );
                 case "inactivo":
                   return (
                     <tbody>
                       {datosServidor &&
-                        datosServidor.map((alumno) => {
-                          return (
-                            <tr>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <div class="flex items-center">
-                                  <div class="flex-shrink-0 w-10 h-10">
-                                    {/**IMG */}
-                                    <img
-                                      class="w-full h-full rounded-full"
-                                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                      alt=""
-                                    />
+                        datosServidor
+                          .map((alumno) => {
+                            return (
+                              <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-10 h-10">
+                                      {/**IMG */}
+                                      <img
+                                        class="w-full h-full rounded-full"
+                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                        alt=""
+                                      />
+                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nombre_registro +
-                                    " " +
-                                    alumno.apellido_registro}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nie}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.correo}
-                                </p>
-                              </td>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nombre_registro +
+                                      " " +
+                                      alumno.apellido_registro}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nie}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.correo}
+                                  </p>
+                                </td>
 
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nombre_inst}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nivel_academico}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <span
-                                  class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
-                                    alumno.estado_registro == "activo"
-                                      ? "text-green-900"
-                                      : " text-red-900"
-                                  }`}
-                                >
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nombre_inst}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nivel_academico}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
-                                    class={`${
+                                    class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
                                       alumno.estado_registro == "activo"
-                                        ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                                        : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                        ? "text-green-900"
+                                        : " text-red-900"
                                     }`}
-                                  ></span>
-                                  <span class="relative">
-                                    {alumno.estado_registro}
+                                  >
+                                    <span
+                                      class={`${
+                                        alumno.estado_registro == "activo"
+                                          ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                          : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                      }`}
+                                    ></span>
+                                    <span class="relative">
+                                      {alumno.estado_registro}
+                                    </span>
                                   </span>
-                                </span>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <BotonEditar tipo="editarAlumno" />
-                                {alumno.estado_registro == "activo" ? (
-                                  <BotonEliminar tipo="eliminar" />
-                                ) : (
-                                  <BotonActivar tipo="activar" />
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <BotonEditar tipo="editarAlumno" />
+                                  {alumno.estado_registro == "activo" ? (
+                                    <BotonEliminar tipo="eliminar" />
+                                  ) : (
+                                    <BotonActivar tipo="activar" />
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })
+                          .slice(primerIndex, sigIndex)}
                     </tbody>
                   );
                 default:
                   return (
                     <tbody>
                       {datosServidor &&
-                        datosServidor.map((alumno) => {
-                          return (
-                            <tr>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <div class="flex items-center">
-                                  <div class="flex-shrink-0 w-10 h-10">
-                                    {/**IMG */}
-                                    <img
-                                      class="w-full h-full rounded-full"
-                                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                                      alt=""
-                                    />
+                        datosServidor
+                          .map((alumno) => {
+                            return (
+                              <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-10 h-10">
+                                      {/**IMG */}
+                                      <img
+                                        class="w-full h-full rounded-full"
+                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
+                                        alt=""
+                                      />
+                                    </div>
                                   </div>
-                                </div>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nombre_registro +
-                                    " " +
-                                    alumno.apellido_registro}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nie}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.correo}
-                                </p>
-                              </td>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nombre_registro +
+                                      " " +
+                                      alumno.apellido_registro}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nie}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.correo}
+                                  </p>
+                                </td>
 
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nombre_inst}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                  {alumno.nivel_academico}
-                                </p>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <span
-                                  class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
-                                    alumno.estado_registro == "activo"
-                                      ? "text-green-900"
-                                      : " text-red-900"
-                                  }`}
-                                >
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nombre_inst}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <p class="text-gray-900 whitespace-no-wrap">
+                                    {alumno.nivel_academico}
+                                  </p>
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
-                                    class={`${
+                                    class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
                                       alumno.estado_registro == "activo"
-                                        ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                                        : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                        ? "text-green-900"
+                                        : " text-red-900"
                                     }`}
-                                  ></span>
-                                  <span class="relative">
-                                    {alumno.estado_registro}
+                                  >
+                                    <span
+                                      class={`${
+                                        alumno.estado_registro == "activo"
+                                          ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                          : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                      }`}
+                                    ></span>
+                                    <span class="relative">
+                                      {alumno.estado_registro}
+                                    </span>
                                   </span>
-                                </span>
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <BotonEditar tipo="editarAlumno" />
-                                {alumno.estado_registro == "activo" ? (
-                                  <BotonEliminar tipo="eliminar" />
-                                ) : (
-                                  <BotonActivar tipo="activar" />
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <BotonEditar tipo="editarAlumno" />
+                                  {alumno.estado_registro == "activo" ? (
+                                    <BotonEliminar tipo="eliminar" />
+                                  ) : (
+                                    <BotonActivar tipo="activar" />
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })
+                          .slice(primerIndex, sigIndex)}
                     </tbody>
                   );
               }
@@ -395,15 +407,15 @@ export const AdministrarAlumnos = () => {
           </table>
           <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
             <span class="text-xs xs:text-sm text-gray-900">
-              Showing 1 to 4 of 50 Entries
+              Mostrando {datosServidor.length} Entradas
             </span>
             <div class="inline-flex mt-2 xs:mt-0">
-              <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
-                Anterior
-              </button>
-              <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
-                Siguiente
-              </button>
+              <Paginacion
+                datosPages={datosPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPaginas={totalPaginas}
+              />
             </div>
           </div>
           <div

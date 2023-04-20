@@ -30,97 +30,41 @@ export const Paginacion = ({
   
     return (
       <div className="items-center justify-center py-10 lg:px-0 sm:px-6 px-4">
-        <div className="lg:w-3/5 w-full border-lg flex items-center justify-between border border-gray-200 ">
-          <button
-            className={
-              "flex items-center pt-3 px-2 hover:text-blue cursor-pointer ${...currentPage <= 1 ? 'invisible'' : ' '}"
-            }
-            onClick={onPrevPage}
-          >
-            <svg
-              width="14"
-              height="8"
-              viewBox="0 0 14 8"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+        <div class="inline-flex mt-2 xs:mt-0">
+        <button
+          className={
+            "text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l cursor-pointer ${...currentPage <= 1 ? 'invisible' : ' '}"
+          }
+          onClick={onPrevPage}
+        >
+          <p className="text-sm ml-3 font-medium leading-none hover:text-blue">
+            Anterior
+          </p>
+        </button>
+        <div className="sm:flex hidden text-white ">
+          {pageNumbers.map((numeroPagina) => (
+            <button
+              key={numeroPagina}
+              className={
+                "items-center hidden px-4 py-2 mx-1 transition-colors duration-300 transform bg-aFuerte3 rounded-md sm:flex  hover:bg-black hover:text-white ${numeroPagina === currentPage ? 'fill-current' : '' "
+              }
+              onClick={() => onSpecificpage(numeroPagina)}
             >
-              <path
-                d="M1.1665 4H12.8332"
-                stroke="currentColor"
-                strokeWidth="1.25"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M1.1665 4L4.49984 7.33333"
-                stroke="currentColor"
-                strokeWidth="1.25"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M1.1665 4.00002L4.49984 0.666687"
-                stroke="currentColor"
-                strokeWidth="1.25"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <p className="text-sm ml-3 font-medium leading-none hover:text-blue  ">
-              Anterior
-            </p>
-          </button>
-          <div className="sm:flex hidden text-white ">
-            {pageNumbers.map((numeroPagina) => (
-              <button
-                key={numeroPagina}
-                className={
-                  "items-center hidden px-4 py-2 mx-1 transition-colors duration-300 transform bg-aFuerte3 rounded-md sm:flex  hover:bg-black hover:text-white ${numeroPagina === currentPage ? 'fill-current' : '' "
-                }
-                onClick={() => onSpecificpage(numeroPagina)}
-              >
-                {numeroPagina}
-              </button>
-            ))}
-          </div>
-          <button
-            className={
-              "flex items-center px-2 pt-3 hover:text-black  cursor-pointer ${ currentPage >= pageNumbers.length ? 'hidden' : ''}"
-            }
-            onClick={onNextPage}
-          >
-            <p className="text-sm font-medium leading-none mr-3 hover:text-black  ">Siguiente</p>
-            <svg
-              width="14"
-              height="8"
-              viewBox="0 0 14 8"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1.1665 4H12.8332"
-                stroke="currentColor"
-                strokeWidth="1.25"
-                strokeLinecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M9.5 7.33333L12.8333 4"
-                stroke="currentColor"
-                strokeWidth="1.25"
-                strokeLinecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M9.5 0.666687L12.8333 4.00002"
-                stroke="currentColor"
-                strokeWidth="1.25"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
+              {numeroPagina}
+            </button>
+          ))}
         </div>
+        <button
+          className={
+            "text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r cursor-pointer ${ currentPage >= pageNumbers.length ? 'hidden' : ''}"
+          }
+          onClick={onNextPage}
+        >
+          <p className="text-sm font-medium leading-none mr-3 hover:text-black  ">
+            Siguiente
+          </p>
+        </button>
+      </div>
       </div>
     );
   };

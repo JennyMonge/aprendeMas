@@ -4,9 +4,15 @@ import { BotonEliminar } from "../Botones/BotonEliminar";
 import { BotonActivar } from "../Botones/BotonActivar";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Paginacion } from "../../Filtro/Paginacion";
 
 export const TablaGrado = () => {
   const [datosServidor, setDatosServidor] = useState([]);
+  const [datosPages, setDatosPages] = useState(5); //cantidad de datos que quiero que me aparezcan
+  const [currentPage, setCurrentPage] = useState(1);
+  const sigIndex = currentPage * datosPages;
+  const primerIndex = sigIndex - datosPages;
+  const totalPaginas = datosServidor.length;
   //demas
   const [busqueda, setBusqueda] = useState("");
   const [tabla, setTabla] = useState([]);
@@ -142,164 +148,169 @@ export const TablaGrado = () => {
                   return (
                     <tbody>
                       {datosServidor &&
-                        datosServidor.map((grado) => {
-                          return (
-                            <tr>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {grado.id_grado}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {grado.nivel_academico}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <span
-                                  class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
-                                    grado.estado_grado == "activo"
-                                      ? "text-green-900"
-                                      : " text-red-900"
-                                  }`}
-                                >
+                        datosServidor
+                          .map((grado) => {
+                            return (
+                              <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {grado.id_grado}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {grado.nivel_academico}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
-                                    class={`${
+                                    class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
                                       grado.estado_grado == "activo"
-                                        ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                                        : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                        ? "text-green-900"
+                                        : " text-red-900"
                                     }`}
-                                  ></span>
-                                  <span class="relative">
-                                    {grado.estado_grado}
+                                  >
+                                    <span
+                                      class={`${
+                                        grado.estado_grado == "activo"
+                                          ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                          : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                      }`}
+                                    ></span>
+                                    <span class="relative">
+                                      {grado.estado_grado}
+                                    </span>
                                   </span>
-                                </span>
-                              </td>
-                              {/**{institucion.estado_institucion == "activo"
+                                </td>
+                                {/**{institucion.estado_institucion == "activo"
                       ? "green"
                       : "absolute inset-0 bg-red-200 opacity-50 rounded-full"} */}
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <BotonEditar tipo="editarGrado" />
-                                {grado.estado_grado == "activo" ? (
-                                  <BotonEliminar tipo="eliminar" />
-                                ) : (
-                                  <BotonActivar tipo="activar" />
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <BotonEditar tipo="editarGrado" />
+                                  {grado.estado_grado == "activo" ? (
+                                    <BotonEliminar tipo="eliminar" />
+                                  ) : (
+                                    <BotonActivar tipo="activar" />
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })
+                          .slice(primerIndex, sigIndex)}
                     </tbody>
                   );
                 case "inactivo":
                   return (
                     <tbody>
                       {datosServidor &&
-                        datosServidor.map((grado) => {
-                          return (
-                            <tr>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {grado.id_grado}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {grado.nivel_academico}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <span
-                                  class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
-                                    grado.estado_grado == "activo"
-                                      ? "text-green-900"
-                                      : " text-red-900"
-                                  }`}
-                                >
+                        datosServidor
+                          .map((grado) => {
+                            return (
+                              <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {grado.id_grado}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {grado.nivel_academico}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
-                                    class={`${
+                                    class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
                                       grado.estado_grado == "activo"
-                                        ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                                        : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                        ? "text-green-900"
+                                        : " text-red-900"
                                     }`}
-                                  ></span>
-                                  <span class="relative">
-                                    {grado.estado_grado}
+                                  >
+                                    <span
+                                      class={`${
+                                        grado.estado_grado == "activo"
+                                          ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                          : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                      }`}
+                                    ></span>
+                                    <span class="relative">
+                                      {grado.estado_grado}
+                                    </span>
                                   </span>
-                                </span>
-                              </td>
-                              {/**{institucion.estado_institucion == "activo"
+                                </td>
+                                {/**{institucion.estado_institucion == "activo"
                       ? "green"
                       : "absolute inset-0 bg-red-200 opacity-50 rounded-full"} */}
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <BotonEditar tipo="editarGrado" />
-                                {grado.estado_grado == "activo" ? (
-                                  <BotonEliminar tipo="eliminar" />
-                                ) : (
-                                  <BotonActivar tipo="activar" />
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <BotonEditar tipo="editarGrado" />
+                                  {grado.estado_grado == "activo" ? (
+                                    <BotonEliminar tipo="eliminar" />
+                                  ) : (
+                                    <BotonActivar tipo="activar" />
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })
+                          .slice(primerIndex, sigIndex)}
                     </tbody>
                   );
                 default:
                   return (
                     <tbody>
                       {datosServidor &&
-                        datosServidor.map((grado) => {
-                          return (
-                            <tr>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {grado.id_grado}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                {grado.nivel_academico}
-                              </td>
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <span
-                                  class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
-                                    grado.estado_grado == "activo"
-                                      ? "text-green-900"
-                                      : " text-red-900"
-                                  }`}
-                                >
+                        datosServidor
+                          .map((grado) => {
+                            return (
+                              <tr>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {grado.id_grado}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  {grado.nivel_academico}
+                                </td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <span
-                                    class={`${
+                                    class={`relative inline-block px-3 py-1 font-semibold  leading-tight ${
                                       grado.estado_grado == "activo"
-                                        ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                                        : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                        ? "text-green-900"
+                                        : " text-red-900"
                                     }`}
-                                  ></span>
-                                  <span class="relative">
-                                    {grado.estado_grado}
+                                  >
+                                    <span
+                                      class={`${
+                                        grado.estado_grado == "activo"
+                                          ? "absolute inset-0 bg-green-200 opacity-50 rounded-full"
+                                          : "absolute inset-0 bg-red-200 opacity-50 rounded-full-50 rounded-full"
+                                      }`}
+                                    ></span>
+                                    <span class="relative">
+                                      {grado.estado_grado}
+                                    </span>
                                   </span>
-                                </span>
-                              </td>
-                              {/**{institucion.estado_institucion == "activo"
+                                </td>
+                                {/**{institucion.estado_institucion == "activo"
                       ? "green"
                       : "absolute inset-0 bg-red-200 opacity-50 rounded-full"} */}
-                              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <BotonEditar tipo="editarGrado" />
-                                {grado.estado_grado == "activo" ? (
-                                  <BotonEliminar tipo="eliminar" />
-                                ) : (
-                                  <BotonActivar tipo="activar" />
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                  <BotonEditar tipo="editarGrado" />
+                                  {grado.estado_grado == "activo" ? (
+                                    <BotonEliminar tipo="eliminar" />
+                                  ) : (
+                                    <BotonActivar tipo="activar" />
+                                  )}
+                                </td>
+                              </tr>
+                            );
+                          })
+                          .slice(primerIndex, sigIndex)}
                     </tbody>
                   );
               }
             })()}
-            
           </table>
           <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
             <span class="text-xs xs:text-sm text-gray-900">
-              Mostrando 1 to _ de {datosServidor.length} Entradas
+              Mostrando {datosServidor.length} Entradas
             </span>
             <div class="inline-flex mt-2 xs:mt-0">
-              <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
-                Anterior
-              </button>
-              <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
-                Siguiente
-              </button>
+              <Paginacion
+                datosPages={datosPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalPaginas={totalPaginas}
+              />
             </div>
           </div>
         </div>

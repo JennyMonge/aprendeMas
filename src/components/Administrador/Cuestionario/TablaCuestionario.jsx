@@ -3,9 +3,14 @@ import { BotonEliminar } from "../Botones/BotonEliminar";
 import { BotonActivar } from "../Botones/BotonActivar";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Paginacion } from "../../Filtro/Paginacion";
 const TablaCuestionario = () => {
   const [datosServidor, setDatosServidor] = useState([]);
-  const [paginacion, setPaginacion] = useState(8);
+  const [datosPages, setDatosPages] = useState(5); //cantidad de datos que quiero que me aparezcan
+  const [currentPage, setCurrentPage] = useState(1);
+  const sigIndex = currentPage * datosPages;
+  const primerIndex = sigIndex - datosPages;
+  const totalPaginas = datosServidor.length;
 
   const [busqueda, setBusqueda] = useState("");
   const [tabla, setTabla] = useState([]);
@@ -115,7 +120,7 @@ const TablaCuestionario = () => {
           />
         </div>
       </div>
-      {/*INICIO filtro */}
+      {/*FIN filtro */}
       <div className="flex flex-col">
         <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
           <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -161,7 +166,7 @@ const TablaCuestionario = () => {
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <p class="text-gray-900 whitespace-no-wrap">
-                                    0
+                                    {cuestionario.preguntas}
                                   </p>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -194,7 +199,7 @@ const TablaCuestionario = () => {
                                 </td>
                               </tr>
                             );
-                          })}
+                          }).slice(primerIndex, sigIndex)}
                       </tbody>
                     );
                   case "inactivo":
@@ -216,7 +221,7 @@ const TablaCuestionario = () => {
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <p class="text-gray-900 whitespace-no-wrap">
-                                    0
+                                    {cuestionario.preguntas}
                                   </p>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -249,7 +254,7 @@ const TablaCuestionario = () => {
                                 </td>
                               </tr>
                             );
-                          })}
+                          }).slice(primerIndex, sigIndex)}
                       </tbody>
                     );
                   default:
@@ -271,7 +276,7 @@ const TablaCuestionario = () => {
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                   <p class="text-gray-900 whitespace-no-wrap">
-                                    0
+                                    {cuestionario.preguntas}
                                   </p>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -304,80 +309,23 @@ const TablaCuestionario = () => {
                                 </td>
                               </tr>
                             );
-                          })}
+                          }).slice(primerIndex, sigIndex)}
                       </tbody>
                     );
                 }
               })()}
-              {/**
-              <tbody>
-                <tr>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">1</p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">
-                      Cuestionario 1
-                    </p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">5</p>
-                  </td>
-
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                      <span
-                        aria-hidden
-                        class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                      ></span>
-                      <span class="relative">Activo</span>
-                    </span>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <BotonEditar tipo="editarCuestionario" />
-                    <BotonEliminar tipo="eliminar" />
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">2</p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">
-                      Cuestionario 2
-                    </p>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <p class="text-gray-900 whitespace-no-wrap">4</p>
-                  </td>
-
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                      <span
-                        aria-hidden
-                        class="absolute inset-0 bg-red-200 opacity-50 rounded-full"
-                      ></span>
-                      <span class="relative">Inactive</span>
-                    </span>
-                  </td>
-                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                    <BotonEditar tipo="editarCuestionario" />
-                    <BotonEliminar tipo="eliminar" />
-                  </td>
-                </tr>
-              </tbody> */}
             </table>
             <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
               <span class="text-xs xs:text-sm text-gray-900">
-                Showing 1 to 4 of 50 Entries
+                Mostrando {datosServidor.length} Entradas
               </span>
               <div class="inline-flex mt-2 xs:mt-0">
-                <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
-                  Anterior
-                </button>
-                <button class="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
-                  Siguiente
-                </button>
+                <Paginacion
+                  datosPages={datosPages}
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalPaginas={totalPaginas}
+                />
               </div>
             </div>
           </div>
