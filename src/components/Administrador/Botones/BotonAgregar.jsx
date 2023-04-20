@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 export function BotonAgregar({ tipo }) {
@@ -107,6 +107,26 @@ export function BotonAgregar({ tipo }) {
       })
     }
   }
+const [datosServidor, setDatosServidor] = useState([]);
+  useEffect(()=>{
+    async function getDepartamentos(){
+      const url = "http://localhost:8000/api/municipio-listar";
+
+      let config = {
+        headers: {
+          "Content-Type":"application/json",
+          Accept: "application/json",
+        },
+      };
+      try{
+        const resp = await axios.get(url,config);
+        setDatosServidor(resp.data);
+      }catch(err){
+        console.error(err);
+      }
+    }
+    getDepartamentos();
+  },[]);
   const ValidarInputs = (data) => {
     console.log(data);
     //declaramos un arreglo el cual se va encargar de guardar las validaciones
@@ -1075,9 +1095,11 @@ export function BotonAgregar({ tipo }) {
                       value={formularioIn.muniIn}
                       onChange={ManejarEventosDeInputsIn}
                     >
-                      <option selected>Municipio</option>
-                      <option value="#">Municipio x</option>
-                      <option value="#">Municipio y</option>
+                      {datosServidor.map((municipio) =>{
+                        return(
+                          <option id={municipio.id_municipio}>{municipio.nombre_municipio}</option>
+                        );
+                      })}
                     </select>
                     {alerta
                       .filter(
