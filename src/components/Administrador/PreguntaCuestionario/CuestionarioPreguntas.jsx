@@ -1,6 +1,5 @@
 import Sidbar from "../Dashboard/Aside";
 import Navb from "../Dashboard/Nav";
-import Opcion2 from "./Opcion2";
 import PreguntasCto from "./PreguntasCto";
 const CuestionarioPreguntas = () => {
   return (
