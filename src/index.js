@@ -26,10 +26,10 @@ import CuestionarioPreguntas from "./components/Administrador/PreguntaCuestionar
 import EncuestaPreguntas from "./components/Administrador/PreguntasEncuesta/EncuestaPreguntas";
 
 import Ajustesi from "./components/Administrador/Ajustes/Ajustesi";
-import Registros from "./components/Administrador/Pruebas/registros"
-import EjemplosPractica from "./components/Administrador/Pruebas/EjemplosPractica";
-import OtraPrueba from "./components/Administrador/Pruebas/OtraPrueba";
-import PruebaFiltro from "./components/Administrador/Pruebas/Pruebafiltro";
+//import Registros from "./components/Administrador/Pruebas/registros"
+//import EjemplosPractica from "./components/Administrador/Pruebas/EjemplosPractica";
+//import OtraPrueba from "./components/Administrador/Pruebas/OtraPrueba";
+//import PruebaFiltro from "./components/Administrador/Pruebas/Pruebafiltro";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
