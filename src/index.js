@@ -26,8 +26,10 @@ import CuestionarioPreguntas from "./components/Administrador/PreguntaCuestionar
 import EncuestaPreguntas from "./components/Administrador/PreguntasEncuesta/EncuestaPreguntas";
 
 import Ajustesi from "./components/Administrador/Ajustes/Ajustesi";
-{/*import Registros from "./components/Administrador/Pruebas/registros"
-import EjemplosPractica from "./components/Administrador/Pruebas/EjemplosPractica";*/}
+import Registros from "./components/Administrador/Pruebas/registros"
+import EjemplosPractica from "./components/Administrador/Pruebas/EjemplosPractica";
+import OtraPrueba from "./components/Administrador/Pruebas/OtraPrueba";
+import PruebaFiltro from "./components/Administrador/Pruebas/Pruebafiltro";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -55,8 +57,10 @@ root.render(
         <Route path="/preguntascto" element={<CuestionarioPreguntas/>}></Route>
         <Route path="/preguntasent" element={<EncuestaPreguntas/>}></Route>
         {/*pruebas*/}
-       {/* <Route path="/pruebas" element={<Registros/>}></Route>
-        <Route path="/ejemploo" element={<EjemplosPractica/>}></Route>*/}
+        <Route path="/pruebas" element={<Registros/>}></Route>
+        <Route path="/ejemploo" element={<EjemplosPractica/>}></Route>
+        <Route path="/pruebaAxios" element={<OtraPrueba/>}></Route>
+        <Route path="/pruebaFiltro" element={<PruebaFiltro/>}></Route>
         
         <Route path="*" element={<h2>Ingrese a una Ruta correcta</h2>}></Route>
       </Routes>

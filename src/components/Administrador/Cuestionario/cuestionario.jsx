@@ -1,6 +1,5 @@
 import Sidbar from "../Dashboard/Aside";
 import Navb from "../Dashboard/Nav";
-import EncabezadoTabla from "../../Filtro/Filtro";
 import TablaCuestionario from "./TablaCuestionario";
 import {BotonAgregar} from "../Botones/BotonAgregar"
 const Cuestionario = () => {
@@ -17,7 +16,6 @@ const Cuestionario = () => {
               </h2>
             </div>
             <BotonAgregar tipo="agregarCuestionario"/>
-            <EncabezadoTabla/>
             <TablaCuestionario/>
           </div>
         </div>

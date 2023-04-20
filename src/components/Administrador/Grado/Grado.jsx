@@ -1,5 +1,5 @@
 import React from "react";
-import EncabezadoTabal from "../../Filtro/Filtro";
+
 import Navb from "../Dashboard/Nav";
 import Sidbar from "../Dashboard/Aside";
 import TablaGrado from "../Grado/TablaGrado";
@@ -19,7 +19,6 @@ export const Grado = () => {
               </h2>
             </div>
             <BotonAgregar tipo="agregarGrado"/>
-            <EncabezadoTabal />
             <TablaGrado />
           </div>
           

@@ -1,16 +1,13 @@
 import React from "react";
-import EncabezadoTabal from "../../Filtro/Filtro";
 import Navb from "../Dashboard/Nav";
-import Sidbar from "../Dashboard/Aside";
+import Aside from "../Dashboard/Aside";
 import AdministrarInstitucion from "./TablaInstitucion";
 import {BotonAgregar} from "../Botones/BotonAgregar"
-
-
 
 export const Institucion = () => {
     return (
         <div class="flex">
-            <Sidbar/>
+            <Aside/>
             <div class="ml-16 w-full">
                 <Navb/>
                 <div class="container mx-auto px-4 sm:px-8">
@@ -19,7 +16,6 @@ export const Institucion = () => {
                         <h2 class="text-2xl font-semibold leading-tight">Administración de Institución</h2>
                     </div>
                     <BotonAgregar tipo="agregarinstitucion"/>
-                    <EncabezadoTabal/>
                     <AdministrarInstitucion/>
                     </div>
                 </div>

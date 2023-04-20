@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-
 const RegistroA = () => {
   //estado inicial del formulario
   const datosFormulario = {
@@ -119,12 +118,57 @@ const RegistroA = () => {
               mensaje: "Campo requerido",
               estado: true,
             });
-          } else {
+          } else if (valorInput.value.length < 8) {
             errors.push({
               valorInput: valorInput.campo,
-              mensaje: "",
-              estado: false,
+              mensaje: "La contraseña debe tener al menos 8 caracteres",
+              estado: true,
             });
+          } else {
+            var mayus = false;
+            var minus = false;
+            var num = false;
+            var caracter_raro = false;
+            for (var i = 0; i < valorInput.value.length; i++) {
+              if (
+                valorInput.value.charCodeAt(i) >= 65 &&
+                valorInput.value.charCodeAt(i) >= 90
+              ) {
+                mayus = true;
+              } else if (
+                valorInput.value.charCodeAt(i) >= 97 &&
+                valorInput.value.charCodeAt(i) <= 122
+              ) {
+                minus = true;
+              } else if (
+                valorInput.value.charCodeAt(i) >= 48 &&
+                valorInput.charCodeAt(i) <= 57
+              ) {
+                num = true;
+              } else {
+                caracter_raro = true;
+              }
+            }
+            if (
+              mayus === true &&
+              minus === true &&
+              num == true &&
+              caracter_raro === true
+            ) {
+              errors.push({
+                valorInput: valorInput.campo,
+                mensaje: "",
+                estado: false,
+              });
+            } else {
+              errors.push({
+                valorInput: valorInput.campo,
+                mensaje:
+                  "Ingresar una combinación correcta de almenos 8 caracteres",
+                estado: false,
+              });
+            }
+            break;
           }
           break;
         }
@@ -135,12 +179,57 @@ const RegistroA = () => {
               mensaje: "Campo requerido",
               estado: true,
             });
-          } else {
+          } else if (valorInput.value.length < 8) {
             errors.push({
               valorInput: valorInput.campo,
-              mensaje: "",
-              estado: false,
+              mensaje: "La contraseña debe tener al menos 8 caracteres",
+              estado: true,
             });
+          } else {
+            var mayus = false;
+            var minus = false;
+            var num = false;
+            var caracter_raro = false;
+            for (var i = 0; i < valorInput.value.length; i++) {
+              if (
+                valorInput.value.charCodeAt(i) >= 65 &&
+                valorInput.value.charCodeAt(i) >= 90
+              ) {
+                mayus = true;
+              } else if (
+                valorInput.value.charCodeAt(i) >= 97 &&
+                valorInput.value.charCodeAt(i) <= 122
+              ) {
+                minus = true;
+              } else if (
+                valorInput.value.charCodeAt(i) >= 48 &&
+                valorInput.charCodeAt(i) <= 57
+              ) {
+                num = true;
+              } else {
+                caracter_raro = true;
+              }
+            }
+            if (
+              mayus === true &&
+              minus === true &&
+              num == true &&
+              caracter_raro === true
+            ) {
+              errors.push({
+                valorInput: valorInput.campo,
+                mensaje: "",
+                estado: false,
+              });
+            } else {
+              errors.push({
+                valorInput: valorInput.campo,
+                mensaje:
+                  "Ingresar una combinación correcta de almenos 8 caracteres",
+                estado: false,
+              });
+            }
+            break;
           }
           break;
         }
@@ -172,11 +261,16 @@ const RegistroA = () => {
                 value={formulario.nombreR}
                 onChange={ManejarEventosDeInputs}
               />
-              {alerta.filter(input => input.valorInput == "nombre" && input.estado === true).map(message =>(
-                <div>
-                <span class="text-red-500 mt-2">{message.mensaje}</span>
-                </div>
-              ))}
+              {alerta
+                .filter(
+                  (input) =>
+                    input.valorInput == "nombre" && input.estado === true
+                )
+                .map((message) => (
+                  <div>
+                    <span class="text-red-500 mt-2">{message.mensaje}</span>
+                  </div>
+                ))}
             </div>
             <div class="flex-auto">
               {/*apellido */}
@@ -188,11 +282,16 @@ const RegistroA = () => {
                 value={formulario.apellidoR}
                 onChange={ManejarEventosDeInputs}
               />
-              {alerta.filter(input => input.valorInput == "apellido" && input.estado === true).map(message =>(
-                <div>
-                <span class="text-red-500 mt-2">{message.mensaje}</span>
-                </div>
-              ))}
+              {alerta
+                .filter(
+                  (input) =>
+                    input.valorInput == "apellido" && input.estado === true
+                )
+                .map((message) => (
+                  <div>
+                    <span class="text-red-500 mt-2">{message.mensaje}</span>
+                  </div>
+                ))}
             </div>
             <div class="flex-auto">
               {/*correo */}
@@ -204,11 +303,16 @@ const RegistroA = () => {
                 value={formulario.correo}
                 onChange={ManejarEventosDeInputs}
               />
-              {alerta.filter(input => input.valorInput == "correo" && input.estado === true).map(message =>(
-                <div>
-                <span class="text-red-500 mt-2">{message.mensaje}</span>
-                </div>
-              ))}
+              {alerta
+                .filter(
+                  (input) =>
+                    input.valorInput == "correo" && input.estado === true
+                )
+                .map((message) => (
+                  <div>
+                    <span class="text-red-500 mt-2">{message.mensaje}</span>
+                  </div>
+                ))}
             </div>
             {/*PASSWORD */}
             <div class="grid md:grid-cols-2 gap-1">
@@ -221,11 +325,16 @@ const RegistroA = () => {
                   value={formulario.contra1}
                   onChange={ManejarEventosDeInputs}
                 />
-                {alerta.filter(input => input.valorInput == "contra1" && input.estado === true).map(message =>(
-                <div>
-                <span class="text-red-500 mt-2">{message.mensaje}</span>
-                </div>
-              ))}
+                {alerta
+                  .filter(
+                    (input) =>
+                      input.valorInput == "contra1" && input.estado === true
+                  )
+                  .map((message) => (
+                    <div>
+                      <span class="text-red-500 mt-2">{message.mensaje}</span>
+                    </div>
+                  ))}
               </div>
               <div class="w-full">
                 <input
@@ -236,11 +345,16 @@ const RegistroA = () => {
                   value={formulario.contra2}
                   onChange={ManejarEventosDeInputs}
                 />
-                {alerta.filter(input => input.valorInput == "contra2" && input.estado === true).map(message =>(
-                <div>
-                <span class="text-red-500 mt-2">{message.mensaje}</span>
-                </div>
-              ))}
+                {alerta
+                  .filter(
+                    (input) =>
+                      input.valorInput == "contra2" && input.estado === true
+                  )
+                  .map((message) => (
+                    <div>
+                      <span class="text-red-500 mt-2">{message.mensaje}</span>
+                    </div>
+                  ))}
               </div>
             </div>
 

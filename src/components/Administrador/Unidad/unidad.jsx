@@ -1,6 +1,5 @@
 import Navb from "../Dashboard/Nav";
 import Sidbar from "../Dashboard/Aside";
-import FiltroAlumno from "../../Filtro/Filtro";
 import { BotonAgregar } from "../Botones/BotonAgregar";
 import TablaUnidad from "./TablaUnidad";
 const Reporte = () =>{
@@ -15,7 +14,6 @@ const Reporte = () =>{
                         <h2 class="text-2xl font-semibold leading-tight">Unidades</h2>
                     </div>
                     <BotonAgregar tipo="agregarUnidad"/>
-                    <FiltroAlumno/>
                     <TablaUnidad/>
                 </div>
             </div>

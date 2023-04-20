@@ -1,5 +1,4 @@
 import React from "react";
-import EncabezadoTabal from "../../Filtro/Filtro";
 import AdministrarMateria from "./TablaMateria";
 import Sidbar from "../Dashboard/Aside";
 import Navb from "../Dashboard/Nav";
@@ -18,7 +17,6 @@ export const Materia = () => {
                             <h2 class="text-2xl font-semibold leading-tight">Administración de Materias</h2>
                         </div>
                         <BotonAgregar tipo="agregarMateria"/>
-                        <EncabezadoTabal/>
                         <AdministrarMateria/>
                     </div>
                 </div>

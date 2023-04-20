@@ -8,10 +8,10 @@ export const Dashboard = () => {
   return (
     <div className="flex">
         <Aside/>
-      <div className=" w-full ml-16">
+      <div className="w-full ml-16 sm:h-full ">
         {/*navbar */}
         <Navb />
-        <div >
+        <div>
           {/*Contenido Demas contenido*/}
           <Contenido />
           <Graficas/>

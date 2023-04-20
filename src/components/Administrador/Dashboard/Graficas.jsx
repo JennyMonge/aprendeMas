@@ -1,7 +1,9 @@
 const Graficas = () => {
   return (
     <>
-      <div class="bg-gray-500"> hola</div>
+      <div class="bg-gray-500 p-4">
+        hola
+      </div>
     </>
   );
 };

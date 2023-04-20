@@ -211,7 +211,574 @@ export function BotonAgregar({ tipo }) {
     return errors;
   };
   //fin de materia
-
+  //GRADO
+  const datosGrado = {
+    gradoN: "",
+  };
+  const [formularioGr, setFormularioGr] = useState(datosGrado);
+  const ManejarEventosDeInputsGr = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioGr({ ...formularioGr, [name]: value });
+  };
+  const handleRegisterSeccionGr = (e) => {
+    e.preventDefault();
+    let verificarInputs = [{ campo: "nombreG", value: formularioGr.gradoN }];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsGr(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  };
+  //fin de handle
+  const ValidarInputsGr = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nombreG": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin GRADO
+  //UNIDAD
+  const datosUnidades = {
+    nivelU: "",
+    materiaU: "",
+    nombreU: "",
+  };
+  const [formularioUn, setFormularioUn] = useState(datosUnidades);
+  const ManejarEventosDeInputsUn = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioUn({ ...formularioUn, [name]: value });
+  };
+  const handleRegisterSeccionUn = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "nivelU", value: formularioUn.nivelU },
+      { campo: "materiaU", value: formularioUn.materiaU },
+      { campo: "nombreU", value: formularioUn.nombreU },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsUn(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsUn = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nivelU": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Seleccione",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "materiaU": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Seleccione",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "nombreU": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin UNIDAD
+  //CUESTIONARIO
+  const datosCuestionario = {
+    materiaC: "",
+    unidadC: "",
+    nombreC: "",
+  };
+  const [formularioCu, setFormularioCu] = useState(datosCuestionario);
+  const ManejarEventosDeInputsCu = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioCu({ ...formularioCu, [name]: value });
+  };
+  const handleRegisterSeccionCu = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "materiaCu", value: formularioCu.materiaC },
+      { campo: "unidadCu", value: formularioCu.nombreC },
+      { campo: "nombreCu", value: formularioCu.nombreC },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsCu(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsCu = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "materiaCu": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Seleccione",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "unidadCu": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Seleccione",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "nombreCu": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar input
+  //fin cuestionario
+  //ENCUESTA
+  const datosEncuesta = {
+    comentarioE: "",
+  };
+  const [formularioE, setFormularioE] = useState(datosEncuesta);
+  const ManejarEventosDeInputsEn = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioE({ ...formularioE, [name]: value });
+  };
+  const handleRegisterSeccionEn = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "comentarioEn", value: formularioE.comentarioE },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsEn(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsEn = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "comentarioEn": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin encuesta
+  //USUARIO
+  const datosUsuario = {
+    nombreUs: "",
+    apellidoUs: "",
+    correoUs: "",
+    contra1Us: "",
+    contra2Us: "",
+  };
+  const [formularioUs, setFormularioUs] = useState(datosUsuario);
+  const ManejarEventosDeInputsUs = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioUs({ ...formularioUs, [name]: value });
+  };
+  const handleRegisterSeccionUs = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "nombreUs", value: formularioUs.nombreUs },
+      { campo: "apellidoUs", value: formularioUs.apellidoUs },
+      { campo: "correoUs", value: formularioUs.correoUs },
+      { campo: "contra1Us", value: formularioUs.contra1Us },
+      { campo: "contra2Us", value: formularioUs.contra2Us },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsUs(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsUs = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nombreUs": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "apellidoUs": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "correoUs": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "contra1Us": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else if (valorInput.value.length < 8) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "La contraseña debe tener al menos 8 caracteres",
+              estado: true,
+            });
+          } else {
+            var mayus = false;
+            var minus = false;
+            var num = false;
+            var caracter_raro = false;
+            for (var i = 0; i < valorInput.value.length; i++) {
+              if (
+                valorInput.value.charCodeAt(i) >= 65 &&
+                valorInput.value.charCodeAt(i) >= 90
+              ) {
+                mayus = true;
+              } else if (
+                valorInput.value.charCodeAt(i) >= 97 &&
+                valorInput.value.charCodeAt(i) <= 122
+              ) {
+                minus = true;
+              } else if (
+                valorInput.value.charCodeAt(i) >= 48 &&
+                valorInput.charCodeAt(i) <= 57
+              ) {
+                num = true;
+              } else {
+                caracter_raro = true;
+              }
+            }
+            if (
+              mayus === true &&
+              minus === true &&
+              num == true &&
+              caracter_raro === true
+            ) {
+              errors.push({
+                valorInput: valorInput.campo,
+                mensaje: "",
+                estado: false,
+              });
+            } else {
+              errors.push({
+                valorInput: valorInput.campo,
+                mensaje:
+                  "Ingresar una combinación correcta de almenos 8 caracteres",
+                estado: false,
+              });
+            }
+            break;
+          }
+          break;
+        }
+        case "contra2Us": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else if (valorInput.value.length < 8) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "La contraseña debe tener al menos 8 caracteres",
+              estado: true,
+            });
+          } else {
+            var mayus = false;
+            var minus = false;
+            var num = false;
+            var caracter_raro = false;
+            for (var i = 0; i < valorInput.value.length; i++) {
+              if (
+                valorInput.value.charCodeAt(i) >= 65 &&
+                valorInput.value.charCodeAt(i) >= 90
+              ) {
+                mayus = true;
+              } else if (
+                valorInput.value.charCodeAt(i) >= 97 &&
+                valorInput.value.charCodeAt(i) <= 122
+              ) {
+                minus = true;
+              } else if (
+                valorInput.value.charCodeAt(i) >= 48 &&
+                valorInput.charCodeAt(i) <= 57
+              ) {
+                num = true;
+              } else {
+                caracter_raro = true;
+              }
+            }
+            if (
+              mayus === true &&
+              minus === true &&
+              num == true &&
+              caracter_raro === true
+            ) {
+              errors.push({
+                valorInput: valorInput.campo,
+                mensaje: "",
+                estado: false,
+              });
+            } else {
+              errors.push({
+                valorInput: valorInput.campo,
+                mensaje:
+                  "Ingresar una combinación correcta de almenos 8 caracteres",
+                estado: false,
+              });
+            }
+            break;
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin usuario
   return (
     <>
       <button
@@ -517,26 +1084,28 @@ export function BotonAgregar({ tipo }) {
                 Ingresar Grado
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionGr}>
               <div class="relative p-4">
+                {/*nivel academico*/}
                 <div class="flex-auto my-2">
-                  {/*nivel */}
                   <input
                     type="text"
-                    placeholder="Nivel"
+                    name="gradoN"
+                    placeholder="Nivel Académico"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                  />
-                </div>
-                {/*Select */}
-                <div class="flex-auto my-2">
-                  <select
-                    id=""
-                    class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                  >
-                    <option selected>Estado</option>
-                    <option value="#">Inactivo</option>
-                    <option value="#">Activo</option>
-                  </select>
+                    value={formularioGr.gradoN}
+                    onChange={ManejarEventosDeInputsGr}
+                  />{" "}
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreG" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 mt-2">{message.mensaje}</span>
+                      </div>
+                    ))}
                 </div>
               </div>
               <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
@@ -683,47 +1252,85 @@ export function BotonAgregar({ tipo }) {
                 Ingresar Unidad
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionUn}>
               <div class="relative p-4">
                 <div class="grid md:grid-cols-2 gap-1">
+                  {/*select nivel academico */}
                   <div class="w-full">
                     <select
                       id=""
+                      name="nivelU"
                       class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                      value={formularioUn.nivelU}
+                      onChange={ManejarEventosDeInputsUn}
                     >
-                      <option selected>Nivel</option>
+                      <option selected>Nivel académico</option>
                       <option value="#">Grado x</option>
                       <option value="#">Grado y</option>
                     </select>
+                    {alerta
+                      .filter(
+                        (input) =>
+                          input.valorInput == "nivelU" && input.estado === true
+                      )
+                      .map((message) => (
+                        <div>
+                          <span class="text-red-500 pl-2 mt-2">
+                            {message.mensaje}
+                          </span>
+                        </div>
+                      ))}
                   </div>
+                  {/*select materia */}
                   <div class="w-full">
                     <select
                       id=""
+                      name="materiaU"
                       class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                      value={formularioUn.materiaU}
+                      onChange={ManejarEventosDeInputsUn}
                     >
-                      <option selected>Estado</option>
-                      <option value="#">Activo</option>
-                      <option value="#">Inactivo</option>
+                      <option selected>Materia</option>
+                      <option value="#">Materia x</option>
+                      <option value="#">Materia y</option>
                     </select>
+                    {alerta
+                      .filter(
+                        (input) =>
+                          input.valorInput == "materiaU" &&
+                          input.estado === true
+                      )
+                      .map((message) => (
+                        <div>
+                          <span class="text-red-500 pl-2 mt-2">
+                            {message.mensaje}
+                          </span>
+                        </div>
+                      ))}
                   </div>
                 </div>
-                <div class="w-full my-2">
-                  <select
-                    id=""
-                    class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                  >
-                    <option selected>Materia</option>
-                    <option value="#">Materia x</option>
-                    <option value="#">Materia y</option>
-                  </select>
-                </div>
+                {/*nombre */}
                 <div class="flex-auto my-2">
-                  {/*nombre */}
                   <input
                     type="text"
+                    name="nombreU"
                     placeholder="Nombre"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioUn.nombreU}
+                    onChange={ManejarEventosDeInputsUn}
                   />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreU" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
               </div>
               <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
@@ -771,51 +1378,88 @@ export function BotonAgregar({ tipo }) {
                 Ingresar Cuestionario
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionCu}>
               <div class="relative p-4">
                 <div class="grid md:grid-cols-2 gap-1">
+                  {/*select materia */}
                   <div class="w-full">
                     <select
                       id=""
+                      name="materiaC"
                       class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                    >
-                      <option selected>Estado</option>
-                      <option value="#">Activo</option>
-                      <option value="#">Inactivo</option>
-                    </select>
-                  </div>
-
-                  <div class="w-full">
-                    <select
-                      id=""
-                      class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                      value={formularioCu.materiaC}
+                      onChange={ManejarEventosDeInputsCu}
                     >
                       <option selected>Materia</option>
                       <option value="#">Materia x</option>
                       <option value="#">Materia y</option>
                     </select>
+                    {alerta
+                      .filter(
+                        (input) =>
+                          input.valorInput == "materiaCu" &&
+                          input.estado === true
+                      )
+                      .map((message) => (
+                        <div>
+                          <span class="text-red-500 pl-2 mt-2">
+                            {message.mensaje}
+                          </span>
+                        </div>
+                      ))}
                   </div>
+                  {/*select unidad */}
                   <div class="w-full">
                     <select
                       id=""
+                      name="unidadC"
                       class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                      value={formularioCu.unidadC}
+                      onChange={ManejarEventosDeInputsCu}
                     >
                       <option selected>Unidad</option>
                       <option value="#">Unidad x</option>
                       <option value="#">Unidad y</option>
                     </select>
+                    {alerta
+                      .filter(
+                        (input) =>
+                          input.valorInput == "unidadCu" &&
+                          input.estado === true
+                      )
+                      .map((message) => (
+                        <div>
+                          <span class="text-red-500 pl-2 mt-2">
+                            {message.mensaje}
+                          </span>
+                        </div>
+                      ))}
                   </div>
                 </div>
+                {/*Nombre */}
                 <div class="flex-auto my-2">
-                  {/*Nombre */}
                   <label class="pl-1">Nombre</label>
                   <input
                     type="text"
+                    name="nombreC"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioCu.nombreC}
+                    onChange={ManejarEventosDeInputsCu}
                   />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreCu" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
               </div>
-
               <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
                 <button
                   type="button"
@@ -861,24 +1505,30 @@ export function BotonAgregar({ tipo }) {
                 Ingresar Encuesta
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionEn}>
               <div class="relative p-4">
-                {/*datos */}
-                <div class="w-1/2">
-                  <div class="">
-                    <select
-                      id=""
-                      class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none py-3 px-3"
-                    >
-                      <option selected>Estado</option>
-                      <option value="#">Activa</option>
-                      <option value="#">Inactiva</option>
-                    </select>
-                  </div>
-                </div>
+                {/*Comentario */}
                 <div class="flex-auto my-2">
                   <label class="pl-1">Comentario</label>
-                  <textarea class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none py-1 px-3"></textarea>
+                  <textarea
+                    name="comentarioE"
+                    class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none py-1 px-3"
+                    value={formularioE.comentarioE}
+                    onChange={ManejarEventosDeInputsEn}
+                  />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "comentarioEn" &&
+                        input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
                 {/*fin datos */}
               </div>
@@ -927,46 +1577,127 @@ export function BotonAgregar({ tipo }) {
                 Ingresar Usuario
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionUs}>
               <div class="relative p-4">
+                {/*Nombre */}
                 <div class="flex-auto my-2">
-                  {/*Nombre */}
                   <input
                     type="text"
+                    name="nombreUs"
                     placeholder="Nombres"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioUs.nombreUs}
+                    onChange={ManejarEventosDeInputsUs}
                   />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreUs" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
+                {/*apellido */}
                 <div class="flex-auto my-2">
-                  {/*apellido */}
                   <input
                     type="text"
+                    name="apellidoUs"
                     placeholder="Apellidos"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                  />
+                    value={formularioUs.apellidoUs}
+                    onChange={ManejarEventosDeInputsUs}
+                  />{" "}
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "apellidoUs" &&
+                        input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
+                {/*correo */}
                 <div class="flex-auto my-2">
-                  {/*correo */}
                   <input
                     type="email"
+                    name="correoUs"
                     placeholder="ejemplo@email.com"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioUs.correoUs}
+                    onChange={ManejarEventosDeInputsUs}
                   />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "correoUs" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
+                {/*contraseñas */}
                 <div class="grid md:grid-cols-2 gap-1">
+                  {/*contraseña 1*/}
                   <div class="w-full">
                     <input
                       type="password"
+                      name="contra1Us"
                       placeholder="Contraseña"
                       class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                    />
+                      value={formularioUs.contra1Us}
+                      onChange={ManejarEventosDeInputsUs}
+                    />{" "}
+                    {alerta
+                      .filter(
+                        (input) =>
+                          input.valorInput == "contra1Us" &&
+                          input.estado === true
+                      )
+                      .map((message) => (
+                        <div>
+                          <span class="text-red-500 pl-2 mt-2">
+                            {message.mensaje}
+                          </span>
+                        </div>
+                      ))}
                   </div>
+                  {/*contraseña 2*/}
                   <div class="w-full">
                     <input
                       type="password"
+                      name="contra2Us"
                       placeholder="Repetir Contraseña"
                       class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                      value={formularioUs.contra2Us}
+                      onChange={ManejarEventosDeInputsUs}
                     />
+                    {alerta
+                      .filter(
+                        (input) =>
+                          input.valorInput == "contra2Us" &&
+                          input.estado === true
+                      )
+                      .map((message) => (
+                        <div>
+                          <span class="text-red-500 pl-2 mt-2">
+                            {message.mensaje}
+                          </span>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>

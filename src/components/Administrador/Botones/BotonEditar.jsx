@@ -1,25 +1,689 @@
-import {HiPencilAlt} from "react-icons/hi";
+import { HiPencilAlt } from "react-icons/hi";
+import { useState } from "react";
 export function BotonEditar({ tipo }) {
+  //ALUMNO
+  const datosAlumnoe = {
+    nombreEdA: "",
+    apellidoEdA: "",
+    nieEdA: "",
+    nivelEdA: "",
+    institucionEdA: "",
+    fechaEdA: "",
+    generoEdA: "",
+  };
+  //estado inicial para alerta
+  const initialStateInput = {
+    input: "",
+    message: "",
+    state: false,
+  };
+  //manejar los valores del formulario
+  const [formularioEdA, setFormularioEdA] = useState(datosAlumnoe);
+  //manejar las alertar de validacion
+  const [alerta, setAlerta] = useState([initialStateInput]);
+  //funcion para obtener lo de los inputs
+  const ManejarEventosDeInputsEdA = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioEdA({ ...formularioEdA, [name]: value });
+  };
+  //encargada de validar los inputs
+  const handleRegisterSeccionEdA = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "nombreA", value: formularioEdA.nombreEdA },
+      { campo: "apellidoA", value: formularioEdA.apellidoEdA },
+      { campo: "nieA", value: formularioEdA.nieEdA },
+      { campo: "nivelA", value: formularioEdA.nivelEdA },
+      { campo: "institucionA", value: formularioEdA.institucionEdA },
+      { campo: "fechaA", value: formularioEdA.fechaEdA },
+      { campo: "generoA", value: formularioEdA.generoEdA },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsEdA(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsEdA = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nombreA": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "apellidoA": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "nieA": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "nivelA": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Seleccione",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "institucionA": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "fechaA": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "generoA": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Seleccione",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin alumno
+  //INSTITUCION
+  const datosInstitucione = { nombreEdIn: "" };
+  const [formularioEdIn, setFormularioEdIn] = useState(datosInstitucione);
+  const ManejarEventosDeInputsEdIn = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioEdIn({ ...formularioEdIn, [name]: value });
+  };
+  const handleRegisterSeccionEdIn = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "nombreIn", value: formularioEdIn.nombreEdIn },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsEdIn(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsEdIn = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nombreIn": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin institucion
+  //GRADO
+  const datosGradoe = { nombreEdG: "" };
+  const [formularioEdG, setFormularioEdG] = useState(datosGradoe);
+  const ManejarEventosDeInputsEdG = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioEdG({ ...formularioEdG, [name]: value });
+  };
+  const handleRegisterSeccionEdG = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "nombreG", value: formularioEdG.nombreEdG },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsEdG(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsEdG = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nombreG": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin grado
+  //MATERIA
+  const datosMateriae = { nombreEdM: "" };
+  const [formularioEdM, setFormularioEdM] = useState(datosMateriae);
+  const ManejarEventosDeInputsEdM = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioEdM({ ...formularioEdM, [name]: value });
+  };
+  const handleRegisterSeccionEdM = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "nombreM", value: formularioEdM.nombreEdM },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsEdM(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsEdM = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nombreM": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin materia
+  //UNIDAD
+  const datosUnidade = { nombreEdU: "" };
+  const [formularioEdU, setFormularioEdU] = useState(datosUnidade);
+  const ManejarEventosDeInputsEdU = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioEdU({ ...formularioEdU, [name]: value });
+  };
+  const handleRegisterSeccionEdU = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "nombreU", value: formularioEdM.nombreEdM },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsEdU(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsEdU = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nombreU": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin unidad
+  //CUESTIONARIO
+  const datosCuestionarioe = { nombreEdC: "" };
+  const [formularioEdC, setFormularioEdC] = useState(datosCuestionarioe);
+  const ManejarEventosDeInputsEdC = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioEdC({ ...formularioEdC, [name]: value });
+  };
+  const handleRegisterSeccionEdC = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "nombreC", value: formularioEdC.nombreEdC },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsEdC(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsEdC = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nombreC": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin cuestionario
+  //ENCUESTA
+  const datosEncuestae = { comentarioEdEn: "" };
+  const [formularioEdEn, setFormularioEdEn] = useState(datosEncuestae);
+  const ManejarEventosDeInputsEdEn = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioEdEn({ ...formularioEdEn, [name]: value });
+  };
+  const handleRegisterSeccionEdEn = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "nombreEn", value: formularioEdEn.comentarioEdEn },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsEdEn(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsEdEn = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nombreEn": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin encuesta
+  //USUARIO
+  const datosUsuarioe = {
+    nombreUsEd: "",
+    apellidoUsEd: "",
+    correoUsEd: "",
+  };
+  const [formularioUsEd, setFormularioUsEd] = useState(datosUsuarioe);
+  const ManejarEventosDeInputsUsEd = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    //actualiza los valores capturados a estado formulario
+    setFormularioUsEd({ ...formularioUsEd, [name]: value });
+  };
+  const handleRegisterSeccionUsEd = (e) => {
+    e.preventDefault();
+    let verificarInputs = [
+      { campo: "nombreUs", value: formularioUsEd.nombreUsEd },
+      { campo: "apellidoUs", value: formularioUsEd.apellidoUsEd },
+      { campo: "correoUs", value: formularioUsEd.correoUsEd },
+    ];
+    //enviamos los datos a la funcion de validacion y recibimos las validadciones
+    const datosValidados = ValidarInputsUsEd(verificarInputs);
+    console.log(datosValidados);
+    //enviando las validaciones al estado que se va a encargar de mostarlas en el formulario
+    setAlerta(datosValidados);
+    //obtenemos el total de validaciones
+    const totalValidaciones = datosValidados
+      .filter((input) => input.estado === false)
+      .map((estado) => {
+        return false;
+      });
+    console.log("Total de validaciones:", totalValidaciones.length);
+    //validacion para enviar los datos al servidor
+    if (totalValidaciones.length >= 1) {
+      console.log("Enviar al servidor");
+    }
+  }; //fin de handle
+  const ValidarInputsUsEd = (data) => {
+    console.log(data);
+    //declaramos un arreglo el cual se va a encargar de guardar las validaciones
+    let errors = [];
+    //recibimos los datos a validar
+    const datosDelFormulario = data;
+    //proceso devalidacion
+    datosDelFormulario.map((valorInput) => {
+      switch (valorInput.campo) {
+        case "nombreUs": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "apellidoUs": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        case "correoUs": {
+          if (valorInput.value === "" || valorInput.value === null) {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "Campo requerido",
+              estado: true,
+            });
+          } else {
+            errors.push({
+              valorInput: valorInput.campo,
+              mensaje: "",
+              estado: false,
+            });
+          }
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    return errors;
+  };
+  //fin de validar inputs
+  //fin usuario
   return (
     <>
       <button data-te-toggle="modal" data-te-target={"#" + tipo}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="icon icon-tabler icon-tabler-edit"
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="#ffec00"
-          fill="none"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M9 7h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />
-          <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />
-          <line x1="16" y1="5" x2="19" y2="8" />
-        </svg>
+        <HiPencilAlt class="icon icon-tabler w-8 h-8 text-yellow-200" />
       </button>
       {/*editar alumno*/}
       <div
@@ -43,52 +707,129 @@ export function BotonEditar({ tipo }) {
                 Editar Alumno
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionEdA}>
               <div class="relative p-4">
+                {/*Nombre */}
                 <div class="flex-auto my-2">
-                  {/*Nombre */}
                   <input
                     type="text"
+                    name="nombreEdA"
                     placeholder="Nombres"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioEdA.nombreEdA}
+                    onChange={ManejarEventosDeInputsEdA}
                   />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreA" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
+                {/*apellido */}
                 <div class="flex-auto my-2">
-                  {/*apellido */}
                   <input
                     type="text"
+                    name="apellidoEdA"
                     placeholder="Apellidos"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                  />
+                    value={formularioEdA.apellidoEdA}
+                    onChange={ManejarEventosDeInputsEdA}
+                  />{" "}
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "apellidoA" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
+                {/*NIE */}
                 <div class="flex-auto my-2">
-                  {/*Nombre */}
                   <input
                     type="tel"
+                    name="nieEdA"
                     placeholder="NIE(solo numeros)"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                  />
+                    value={formularioEdA.nieEdA}
+                    onChange={ManejarEventosDeInputsEdA}
+                  />{" "}
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nieA" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
-                {/*Select */}
+                {/*Select nivel academico*/}
                 <div class="flex-auto my-2">
                   <select
                     id=""
+                    name="nivelEdA"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioEdA.nivelEdA}
+                    onChange={ManejarEventosDeInputsEdA}
                   >
-                    <option selected>Grado</option>
+                    <option selected>Nivel Académico</option>
                     <option value="#">Tercer ciclo</option>
                     <option value="#">Bachillerato</option>
                   </select>
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nivelA" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
+                {/*Select institucion*/}
                 <div class="flex-auto my-2">
                   <select
                     id=""
+                    name="institucionEdA"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioEdA.institucionEdA}
+                    onChange={ManejarEventosDeInputsEdA}
                   >
                     <option selected>Institucion</option>
                     <option value="#">Institucion 1</option>
                     <option value="#">Institucion 2</option>
                   </select>
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "institucionA" &&
+                        input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
                 <div class="grid md:grid-cols-2 gap-1">
                   <div class="w-full">
@@ -96,21 +837,49 @@ export function BotonEditar({ tipo }) {
                       class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
                       type="date"
                       id="start"
-                      name="trip-start"
-                      value="2018-07-22"
-                      min="2018-01-01"
-                      max="2018-12-31"
+                      name="fechaEdA"
+                      max="2023-04-10"
+                      value={formularioEdA.fechaEdA}
+                      onChange={ManejarEventosDeInputsEdA}
                     />
+                    {alerta
+                      .filter(
+                        (input) =>
+                          input.valorInput == "fechaA" && input.estado === true
+                      )
+                      .map((message) => (
+                        <div>
+                          <span class="text-red-500 pl-2 mt-2">
+                            {message.mensaje}
+                          </span>
+                        </div>
+                      ))}
                   </div>
+                  {/*Select Genero*/}
                   <div class="w-full">
                     <select
                       id=""
+                      name="generoEdA"
                       class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                      value={formularioEdA.generoEdA}
+                      onChange={ManejarEventosDeInputsEdA}
                     >
                       <option selected>Genero</option>
                       <option value="#">Femenino</option>
                       <option value="#">Masculino</option>
-                    </select>
+                    </select>{" "}
+                    {alerta
+                      .filter(
+                        (input) =>
+                          input.valorInput == "generoA" && input.estado === true
+                      )
+                      .map((message) => (
+                        <div>
+                          <span class="text-red-500 pl-2 mt-2">
+                            {message.mensaje}
+                          </span>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>
@@ -160,15 +929,30 @@ export function BotonEditar({ tipo }) {
                 Editar Institucion
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionEdIn}>
               <div class="relative p-4">
                 <div class="flex-auto my-2">
                   {/*Nombre */}
                   <input
                     type="text"
+                    name="nombreEdIn"
                     placeholder="Nombre"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                  />
+                    value={formularioEdIn.nombreEdIn}
+                    onChange={ManejarEventosDeInputsEdIn}
+                  />{" "}
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreIn" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
               </div>
               <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
@@ -216,15 +1000,29 @@ export function BotonEditar({ tipo }) {
                 Editar Grado
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionEdG}>
               <div class="relative p-4">
                 <div class="flex-auto my-2">
                   {/*nivel */}
                   <input
                     type="text"
-                    placeholder="Nivel"
+                    placeholder="Nivel Académico"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                  />
+                    value={formularioEdG.nombreEdG}
+                    onChange={ManejarEventosDeInputsEdG}
+                  />{" "}
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreG" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
               </div>
               <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
@@ -272,15 +1070,30 @@ export function BotonEditar({ tipo }) {
                 Editar Materia
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionEdM}>
               <div class="relative p-4">
                 <div class="flex-auto my-2">
                   {/*nombre */}
                   <input
                     type="text"
+                    name="nombreEdM"
                     placeholder="Nombre"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioEdM.nombreEdM}
+                    onChange={ManejarEventosDeInputsEdM}
                   />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreM" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
               </div>
               <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
@@ -328,15 +1141,30 @@ export function BotonEditar({ tipo }) {
                 Editar Unidad
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionEdU}>
               <div class="relative p-4">
                 <div class="flex-auto my-2">
                   {/*nombre */}
                   <input
                     type="text"
+                    name="nombreEdU"
                     placeholder="Nombre"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioEdU.nombreEdU}
+                    onChange={ManejarEventosDeInputsEdU}
                   />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreU" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
               </div>
               <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">
@@ -384,15 +1212,30 @@ export function BotonEditar({ tipo }) {
                 Editar Cuestionario
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionEdC}>
               <div class="relative p-4">
                 <div class="flex-auto my-2">
                   {/*Nombre */}
                   <label class="pl-1">Nombre</label>
                   <input
                     type="text"
+                    name="nombreEdC"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioEdC.nombreEdC}
+                    onChange={ManejarEventosDeInputsEdC}
                   />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreC" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
               </div>
 
@@ -441,11 +1284,28 @@ export function BotonEditar({ tipo }) {
                 Editar Encuesta
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionEdEn}>
               <div class="relative p-4">
                 <div class="flex-auto my-2">
                   <label class="pl-1">Comentario</label>
-                  <textarea class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none py-1 px-3"></textarea>
+                  <textarea
+                    name="comentarioEdEn"
+                    class="w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none py-1 px-3"
+                    value={formularioEdEn.comentarioEdEn}
+                    onChange={ManejarEventosDeInputsEdEn}
+                  />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreEn" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
                 {/*fin datos */}
               </div>
@@ -461,8 +1321,7 @@ export function BotonEditar({ tipo }) {
                 </button>
                 <input
                   type="submit"
-                  class="ml-1 inline-block rounded bg-aFuerte2 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out
-                              hover:bg-aFuerte3"
+                  class="ml-1 inline-block rounded bg-aFuerte2 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white transition duration-150 ease-in-out hover:bg-aFuerte3"
                   data-te-ripple-init
                   data-te-ripple-color="light"
                   value="Enviar"
@@ -494,31 +1353,74 @@ export function BotonEditar({ tipo }) {
                 Editar Usuario
               </h5>
             </div>
-            <form action="">
+            <form onSubmit={handleRegisterSeccionUsEd}>
               <div class="relative p-4">
                 <div class="flex-auto my-2">
                   {/*Nombre */}
                   <input
                     type="text"
+                    name="nombreUsEd"
                     placeholder="Nombres"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
+                    value={formularioUsEd.nombreUsEd}
+                    onChange={ManejarEventosDeInputsUsEd}
                   />
+                  {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "nombreUs" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
                 <div class="flex-auto my-2">
                   {/*apellido */}
                   <input
                     type="text"
+                    name="apellidoUsEd"
                     placeholder="Apellidos"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                  />
+                    value={formularioUsEd.apellidoUsEd}
+                    onChange={ManejarEventosDeInputsUsEd}
+                  /> {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "apellidoUs" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
                 <div class="flex-auto my-2">
                   {/*correo */}
                   <input
                     type="email"
+                    name="correoUsEd"
                     placeholder="ejemplo@email.com"
                     class="shadow appearance-none w-full rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none p-3"
-                  />
+                    value={formularioUsEd.correoUsEd}
+                    onChange={ManejarEventosDeInputsUsEd}
+                  /> {alerta
+                    .filter(
+                      (input) =>
+                        input.valorInput == "correoUs" && input.estado === true
+                    )
+                    .map((message) => (
+                      <div>
+                        <span class="text-red-500 pl-2 mt-2">
+                          {message.mensaje}
+                        </span>
+                      </div>
+                    ))}
                 </div>
               </div>
               <div class="flex flex-shrink-0 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 border-opacity-100 p-4">

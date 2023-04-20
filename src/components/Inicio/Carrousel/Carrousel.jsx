@@ -1,5 +1,7 @@
 import React from "react";
-
+import Banner1 from '../img/banner1.jpg';
+import Banner2 from '../img/banner2.jpg';
+import Banner3 from '../img/banner3.jpg';
 export const Carrousel = () => {
     return (
 
@@ -9,7 +11,7 @@ export const Carrousel = () => {
                     data-te-carousel-item
                     data-te-carousel-active>
                     <img
-                        
+                        src={Banner1}
                         class="block w-full"
                         alt="" />
                 </div>
@@ -17,7 +19,7 @@ export const Carrousel = () => {
                     class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[400ms] ease-in-out motion-reduce:transition-none"
                     data-te-carousel-item>
                     <img
-                        
+                        src={Banner2}
                         class="block w-full"
                          />
                 </div>
@@ -25,7 +27,7 @@ export const Carrousel = () => {
                     class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[400ms] ease-in-out motion-reduce:transition-none"
                     data-te-carousel-item>
                     <img
-                       
+                        src={Banner3}
                         class="block w-full"
                         alt="" />
                 </div>

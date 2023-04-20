@@ -1,5 +1,5 @@
 import React from "react";
-import EncabezadoTabla from "../../Filtro/Filtro";
+import {Filtro} from "../../Filtro/Filtro";
 import Sidbar from "../Dashboard/Aside";
 import Navb from "../Dashboard/Nav";
 import TablaEncuesta from "./TablaEncuesta";
@@ -19,7 +19,7 @@ const Encuesta = () => {
               </h2>
             </div>
             <BotonAgregar tipo="agregarEncuesta"/>
-            <EncabezadoTabla />
+            <Filtro />
             <TablaEncuesta />
           </div>
         </div>

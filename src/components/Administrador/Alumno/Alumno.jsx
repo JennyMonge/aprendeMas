@@ -1,6 +1,4 @@
 import React from "react";
-
-import FiltroAlumno from "../../Filtro/Filtro";
 import AdministrarAlumnos from "./TablaAlumnos";
 import Sidbar from "../Dashboard/Aside";
 import Navb from "../Dashboard/Nav";
@@ -17,7 +15,6 @@ export const Alumnos = () => {
                         <div>
                             <h2 class="text-2xl font-semibold leading-tight">Administración de Alumnos</h2>
                         </div>
-                        <FiltroAlumno/>
                         <AdministrarAlumnos/>
                     </div>
                 </div>
