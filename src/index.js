@@ -35,9 +35,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Inicio />}></Route>
+        {/*<Route path="/" element={<Inicio />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route path="/registro" element={<Registro />}></Route>
+        <Route path="/registro" element={<Registro />}></Route>*
         {/*administrador*/}
         <Route path="/loginA" element={<LoginA/>}></Route>
         <Route path="/registroA" element={<RegistroA/>}></Route>
