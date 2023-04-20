@@ -57,10 +57,10 @@ root.render(
         <Route path="/preguntascto" element={<CuestionarioPreguntas/>}></Route>
         <Route path="/preguntasent" element={<EncuestaPreguntas/>}></Route>
         {/*pruebas*/}
-        <Route path="/pruebas" element={<Registros/>}></Route>
-        <Route path="/ejemploo" element={<EjemplosPractica/>}></Route>
-        <Route path="/pruebaAxios" element={<OtraPrueba/>}></Route>
-        <Route path="/pruebaFiltro" element={<PruebaFiltro/>}></Route>
+        {/*<Route path="/pruebas" element={<Registros/>}></Route>*/}
+        {/*<Route path="/ejemploo" element={<EjemplosPractica/>}></Route>*/}
+        {/*<Route path="/pruebaAxios" element={<OtraPrueba/>}></Route>*/}
+        {/*<Route path="/pruebaFiltro" element={<PruebaFiltro/>}></Route>*/}
         
         <Route path="*" element={<h2>Ingrese a una Ruta correcta</h2>}></Route>
       </Routes>
