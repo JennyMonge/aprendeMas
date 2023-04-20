@@ -51,7 +51,6 @@ export function BotonAgregar({ tipo }) {
     console.log("Total de validaciones:", totalValidaciones.length);
     //validacion para enviar los datos al servidor
     if (totalValidaciones.length >= 1) {
-      console.log("Enviar al servidor");
       EnviarDatosInstitucion();
     }
   };

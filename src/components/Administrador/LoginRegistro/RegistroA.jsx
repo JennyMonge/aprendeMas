@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 const RegistroA = () => {
+  const Navigate = useNavigate();
   //estado inicial del formulario
   const datosFormulario = {
     nombreR: "",
@@ -50,10 +53,72 @@ const RegistroA = () => {
       });
     console.log("Total de validaciones:", totalValidaciones.length);
     //validacion para enviar los datos al servidor
-    if (totalValidaciones.length >= 1) {
-      console.log("Enviar al servidor");
+    if (totalValidaciones.length >= 5) {
+      EnviarDatosRegistroAdmin()
     }
   };
+
+  async function EnviarDatosRegistroAdmin() {
+    const url = "http://localhost:8000/api/auth/registro2";
+    const infoInputs = {
+      nombre_registro: formulario.nombreR,
+      apellido_registro: formulario.apellidoR,
+      email: formulario.correoRe,
+      password: formulario.contraR1,
+      password_confirmed: formulario.contraR2
+    };
+    let config = {
+      headers: {
+        'Content-Type':'application/json',
+        'Accept':'application/json',
+      }
+    }
+    try {
+      const resp = await axios.post(url, infoInputs, config);
+      console.log(resp);
+  
+  
+  
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'success',
+        title: 'se ha registrado con exito'
+      })
+      setTimeout(() => {
+        Navigate("/loginA");
+      }, 2000);
+    }catch(err){
+      console.error(err);
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'error',
+        title: 'ha ocurrido un error intente de nuevo'
+      })
+    }
+  }
+
   const ValidarInputs = (data) => {
     console.log(data);
     //declaramos un arreglo el cual se va a encargar de guardar las validaciones
@@ -130,7 +195,7 @@ const RegistroA = () => {
             var num = false;
             var caracter_raro = false;
             for (var i = 0; i < valorInput.value.length; i++) {
-              if (
+              /*if (
                 valorInput.value.charCodeAt(i) >= 65 &&
                 valorInput.value.charCodeAt(i) >= 90
               ) {
@@ -147,7 +212,7 @@ const RegistroA = () => {
                 num = true;
               } else {
                 caracter_raro = true;
-              }
+              }*/
             }
             if (
               mayus === true &&
@@ -191,7 +256,7 @@ const RegistroA = () => {
             var num = false;
             var caracter_raro = false;
             for (var i = 0; i < valorInput.value.length; i++) {
-              if (
+             /* if (
                 valorInput.value.charCodeAt(i) >= 65 &&
                 valorInput.value.charCodeAt(i) >= 90
               ) {
@@ -208,7 +273,7 @@ const RegistroA = () => {
                 num = true;
               } else {
                 caracter_raro = true;
-              }
+              }*/
             }
             if (
               mayus === true &&
