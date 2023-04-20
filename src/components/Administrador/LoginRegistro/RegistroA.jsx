@@ -195,7 +195,7 @@ const RegistroA = () => {
             var num = false;
             var caracter_raro = false;
             for (var i = 0; i < valorInput.value.length; i++) {
-              /*if (
+              if (
                 valorInput.value.charCodeAt(i) >= 65 &&
                 valorInput.value.charCodeAt(i) >= 90
               ) {
@@ -207,12 +207,12 @@ const RegistroA = () => {
                 minus = true;
               } else if (
                 valorInput.value.charCodeAt(i) >= 48 &&
-                valorInput.charCodeAt(i) <= 57
+                valorInput.value.charCodeAt(i) <= 57
               ) {
                 num = true;
               } else {
                 caracter_raro = true;
-              }*/
+              }
             }
             if (
               mayus === true &&
@@ -256,7 +256,7 @@ const RegistroA = () => {
             var num = false;
             var caracter_raro = false;
             for (var i = 0; i < valorInput.value.length; i++) {
-             /* if (
+              if (
                 valorInput.value.charCodeAt(i) >= 65 &&
                 valorInput.value.charCodeAt(i) >= 90
               ) {
@@ -268,12 +268,12 @@ const RegistroA = () => {
                 minus = true;
               } else if (
                 valorInput.value.charCodeAt(i) >= 48 &&
-                valorInput.charCodeAt(i) <= 57
+                valorInput.value.charCodeAt(i) <= 57
               ) {
                 num = true;
               } else {
                 caracter_raro = true;
-              }*/
+              }
             }
             if (
               mayus === true &&
